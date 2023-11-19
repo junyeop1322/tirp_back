@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.vue.attr.model.mapper.AttrMapper">
+
+    <resultMap type="memberDto" id="member">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_password" property="userPwd"/>
+        <result column="user_email" property="email"/>
+        <result column="user_join_date" property="joinDate"/>
+        <result column="token" property="token"/>
+    </resultMap>
+
+    <!-- 검색 가능한 총 관광지 수 -->
+
+    <!-- 시도 코드에 따른 구군 데이터 -->
+    <select id="" parameterType="" resultMap="">
+        select g.gugun_code, g.gugun_name
+        from gugun as g
+        join sido as a
+        on g.sido_code = s.sido_code
+        where s.sido_code = {sidoCode}
+    </select>
+
+    <!-- 검색 가능한 총 관광지 수 -->
+
+    <!-- 검색 가능한 플래너 수 -->
+    <select id="" parameterType="" resultMap="">
+        select count(planner_id) as count
+        from planner
+    </select>
+
+    <!-- 게시글 총 개수 -->
+    <select id="" parameterType="" resultMap="">
+        select count(article_no) as count
+        from board
+    </select>
+
+    <!-- 검색 기록 중 상위 5개 구군 -->
+    <select id="" parameterType="" resultMap="">
+        select g.gugun_name
+        from search_log as s
+        join gugun as g
+        on s.gugun_code = g.gugun_code
+        group by g.gugun_name, g.gugun_code
+        order by count(g.gugun_code) desc
+        limit 5
+    </select>
+
+</mapper>
