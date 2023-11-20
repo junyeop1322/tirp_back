@@ -105,12 +105,26 @@ public class BoardController {
 	
 	@ApiOperation(value = "게시판 글삭제", notes = "글번호에 해당하는 게시글의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/{articleno}")
-	public ResponseEntity<String> deleteArticle(@PathVariable("articleno") @ApiParam(value = "살제할 글의 글번호.", required = true) int articleno) throws Exception {
+	public ResponseEntity<String> deleteArticle(@PathVariable("articleno") @ApiParam(value = "삭제할 글의 글번호.", required = true) int articleno) throws Exception {
 		log.info("deleteArticle - 호출");
 		boardService.deleteArticle(articleno);
 		return ResponseEntity.ok().build();
-
 	}
+
+	@ApiOperation(value = "게시글 총 개수", notes = "게시글의 총 개수를 나타냄", response = BoardDto.class)
+	@GetMapping("/count")
+	public ResponseEntity<Integer> countArticle() throws Exception {
+		log.info("countArtice - 호출");
+		return new ResponseEntity<Integer>(boardService.countArticle(), HttpStatus.OK);
+	}
+
+
+//	@ApiOperation(value = "가장 인기 많은 5가지 구군", notes = "집가서 수정하자")
+//	@GetMapping("/rank")
+//	public List<BoardDto> topFive() throws Exception {
+//
+//		return
+//	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();

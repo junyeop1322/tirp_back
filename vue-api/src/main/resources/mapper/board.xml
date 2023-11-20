@@ -11,7 +11,8 @@
 		<result column="subject" property="subject"/>
 		<result column="content" property="content"/>
 		<result column="hit" property="hit"/>
-		<result column="register_time" property="registerTime"/>
+		<result column="category" property="category"/>
+		<result column="date" property="date"/>
 	</resultMap>
 	
 	<resultMap type="boardDto" id="viewArticle" extends="article">
@@ -31,7 +32,7 @@
 			select last_insert_id()
 		</selectKey>
 	</insert>
-	
+
 	<insert id="registerFile" parameterType="boardDto">
 		insert into file_info (article_no, save_folder, original_file, save_file)
 		values
@@ -52,8 +53,8 @@
 	</sql>
 
 	<select id="listArticle" parameterType="map" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name
-		from board b, members m 
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name
+		from board b, member m
 		where b.user_id = m.user_id
 		<include refid="search"></include>
 		order by b.article_no desc
@@ -69,8 +70,8 @@
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultMap="viewArticle">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name 
-		from board b, members m
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name
+		from board b, member m
 		where b.user_id = m.user_id
 		and b.article_no = #{articleNo}
 	</select>
@@ -102,5 +103,20 @@
 		delete from board
 		where article_no = #{articleNo}
 	</delete>
+
+	<select id="countArticle" parameterType="int" resultType="int">
+		select count(article_no) as count
+		from board
+	</select>
+
+<!--	<select id="topFive" parameterType="boardDto" resultMap="topFive">-->
+<!--		select g.gugun_name-->
+<!--		from search_log as s-->
+<!--		join gugun as g-->
+<!--		on s.gugun_code = g.gugun_code-->
+<!--		group by g.gugun_name, g.gugun_code-->
+<!--		order by count(g.gugun_code) desc-->
+<!--		limit 5-->
+<!--	</select>-->
 
 </mapper>

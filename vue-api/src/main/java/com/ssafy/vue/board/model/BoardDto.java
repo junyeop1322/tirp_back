@@ -29,7 +29,9 @@ public class BoardDto {
 	@ApiModelProperty(value = "조회수")
 	private int hit;
 	@ApiModelProperty(value = "작성일")	
-	private String registerTime;
+	private String date;
+	@ApiModelProperty(value = "글종류")
+	private int category;
 	@ApiModelProperty(value = "업로드 파일정보")
 	private List<FileInfoDto> fileInfos;
 

@@ -1,5 +1,6 @@
 package com.ssafy.vue.board.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ssafy.vue.board.model.BoardDto;
@@ -16,5 +17,9 @@ public interface BoardService {
 	void modifyArticle(BoardDto boardDto) throws Exception;
 //	
 	void deleteArticle(int articleNo) throws Exception;
+
+	int countArticle() throws Exception;
+
+	List<BoardDto> topFive() throws Exception;
 	
 }

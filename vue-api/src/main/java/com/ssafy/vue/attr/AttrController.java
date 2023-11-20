@@ -22,17 +22,17 @@ import com.ssafy.vue.map.model.SidoGugunCodeDto;
 public class AttrController {
 
 
-    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 관광지 수")
-    @GetMapping("/attr/sido")
-    public ResponseEntity<Map<String, Object>> getSido() {
-//        log.debug("sido data {}");
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-        HttpStatus status = HttpStatus.ACCEPTED;
-
-
-
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
-    }
+//    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 관광지 수")
+//    @GetMapping("/attr/sido")
+//    public ResponseEntity<Map<String, Object>> getSido() {
+////        log.debug("sido data {}");
+//        Map<String, Object> resultMap = new HashMap<String, Object>();
+//        HttpStatus status = HttpStatus.ACCEPTED;
+//
+//
+//
+//        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+//    }
 
 //    @ApiOperation(value= "시도 코드에 따른 구군 데이터", notes ="시도 코드에 따른 구군 데이터를 반환함", response = SidoGugunCodeDto.class)
 //    @GetMapping("/attr/gugun/{sidoCode}")
