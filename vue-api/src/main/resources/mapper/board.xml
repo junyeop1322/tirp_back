@@ -26,8 +26,8 @@
 	</resultMap>
 
 	<insert id="writeArticle" parameterType="boardDto">
-		insert into board (user_id, subject, content, hit, register_time)
-		values (#{userId}, #{subject}, #{content}, 0, now())
+		insert into board (user_id, subject, content, hit, register_time, category)
+		values (#{userId}, #{subject}, #{content}, 0, now(), #{category})
 		<selectKey resultType="int" keyProperty="articleNo" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -43,20 +43,21 @@
 
 	<sql id="search">
 		<if test="word != null and word != ''">
-			<if test="key == 'subject'">
-				and subject like concat('%', #{word}, '%')
-			</if>
-			<if test="key != 'subject'">
+			<if test="key == 'user_id'">
 				and ${key} = #{word}
+			</if>
+			<if test="key != 'user_id'">
+				and ${key} like concat('%', #{word}, '%')
 			</if>
 		</if>
 	</sql>
 
 	<select id="listArticle" parameterType="map" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category
 		from board b, member m
 		where b.user_id = m.user_id
 		<include refid="search"></include>
+		and category = #{cate}
 		order by b.article_no desc
 		limit #{start}, #{listsize}
 	</select>
@@ -65,12 +66,14 @@
 		select count(article_no)
 		from board
 		<where>
+			1=1
+			and category = #{cate}
 			<include refid="search"></include>
 		</where>
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultMap="viewArticle">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category
 		from board b, member m
 		where b.user_id = m.user_id
 		and b.article_no = #{articleNo}
@@ -104,10 +107,10 @@
 		where article_no = #{articleNo}
 	</delete>
 
-	<select id="countArticle" parameterType="int" resultType="int">
-		select count(article_no) as count
-		from board
-	</select>
+<!--	<select id="countArticle" parameterType="int" resultType="int">-->
+<!--		select count(article_no)-->
+<!--		from board-->
+<!--	</select>-->
 
 <!--	<select id="topFive" parameterType="boardDto" resultMap="topFive">-->
 <!--		select g.gugun_name-->

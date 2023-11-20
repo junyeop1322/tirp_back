@@ -38,6 +38,7 @@ public class BoardServiceImpl implements BoardService {
 	public BoardListDto listArticle(Map<String, String> map) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("word", map.get("word") == null ? "" : map.get("word"));
+		param.put("cate", map.get("cate") == null ? "1" : map.get("cate"));
 		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
 		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "20" : map.get("spp"));
 		int start = currentPage * sizePerPage - sizePerPage;
@@ -127,14 +128,14 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteArticle(articleNo);
 	}
 
-	@Override
-	public int countArticle() throws Exception {
-		return boardMapper.countArticle();
-	}
+//	@Override
+//	public int countArticle() throws Exception {
+//		return boardMapper.countArticle();
+//	}
 
-	@Override
-	public List<BoardDto> topFive() throws Exception {
-		return boardMapper.topFive();
-	}
+//	@Override
+//	public List<BoardDto> topFive() throws Exception {
+//		return boardMapper.topFive();
+//	}
 
 }

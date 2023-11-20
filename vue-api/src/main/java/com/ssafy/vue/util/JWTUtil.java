@@ -30,6 +30,7 @@ public class JWTUtil {
 
 	public String createAccessToken(String userId) {
 		return create(userId, "access-token", accessTokenExpireTiem);
+
 	}
 
 //	AccessToken에 비해 유효기간을 길게 설정.
@@ -44,6 +45,7 @@ public class JWTUtil {
 //		expire : 토큰 유효기간 설정을 위한 값
 //		jwt 토큰의 구성 : header + payload + signature
 	private String create(String userId, String subject, long expireTime) {
+		log.debug("expireTime : {}", expireTime);
 //		Payload 설정 : 생성일 (IssuedAt), 유효기간 (Expiration), 
 //		토큰 제목 (Subject), 데이터 (Claim) 등 정보 세팅.
 		Claims claims = Jwts.claims()

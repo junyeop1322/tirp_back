@@ -32,8 +32,8 @@ public interface BoardMapper {
 
 	List<FileInfoDto> fileInfoList(int articleNo) throws Exception;
 
-	int countArticle() throws Exception;
+//	int countArticle() throws Exception;
 
-	List<BoardDto> topFive() throws Exception;
+//	List<BoardDto> topFive() throws Exception;
 	
 }

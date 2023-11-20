@@ -4,42 +4,45 @@
 
 <mapper namespace="com.ssafy.vue.attr.model.mapper.AttrMapper">
 
-<!--    <resultMap type="memberDto" id="member">-->
-<!--        <result column="user_id" property="userId"/>-->
-<!--        <result column="user_name" property="userName"/>-->
-<!--        <result column="user_password" property="userPwd"/>-->
-<!--        <result column="user_email" property="email"/>-->
-<!--        <result column="user_join_date" property="joinDate"/>-->
-<!--        <result column="token" property="token"/>-->
+<!--    <resultMap type="AttrDto" id="attr">-->
+<!--        <result column="content_id" property="contentId"/>-->
+<!--        <result column="gugun_code" property="gugunCode"/>-->
+<!--        <result column="gugun_name" property="gugunName"/>-->
+<!--        <result column="planner_id" property="plannerId"/>-->
+<!--        <result column="article_no" property="articleNo"/>-->
 <!--    </resultMap>-->
 
 <!--    &lt;!&ndash; 검색 가능한 총 관광지 수 &ndash;&gt;-->
+<!--    <select id="countAttr" parameterType="int" resultType="int">-->
+<!--        select count(content_id)-->
+<!--        from attraction_info-->
+<!--    </select>-->
 
 <!--    &lt;!&ndash; 시도 코드에 따른 구군 데이터 &ndash;&gt;-->
-<!--    <select id="" parameterType="" resultMap="">-->
+<!--    <select id="gugunSido" parameterType="" resultMap="attrDto">-->
 <!--        select g.gugun_code, g.gugun_name-->
 <!--        from gugun as g-->
 <!--        join sido as a-->
 <!--        on g.sido_code = s.sido_code-->
-<!--        where s.sido_code = {sidoCode}-->
+<!--        where s.sido_code = #{sidoCode}-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 검색 가능한 총 관광지 수 &ndash;&gt;-->
 
 <!--    &lt;!&ndash; 검색 가능한 플래너 수 &ndash;&gt;-->
-<!--    <select id="" parameterType="" resultMap="">-->
-<!--        select count(planner_id) as count-->
+<!--    <select id="countPlanner" parameterType="" resultMap="int">-->
+<!--        select count(planner_id)-->
 <!--        from planner-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 게시글 총 개수 &ndash;&gt;-->
-<!--    <select id="" parameterType="" resultMap="">-->
-<!--        select count(article_no) as count-->
+<!--    <select id="countArticle" parameterType="" resultMap="int">-->
+<!--        select count(article_no)-->
 <!--        from board-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 검색 기록 중 상위 5개 구군 &ndash;&gt;-->
-<!--    <select id="" parameterType="" resultMap="">-->
+<!--    <select id="topFive" parameterType="" resultMap="attrDto">-->
 <!--        select g.gugun_name-->
 <!--        from search_log as s-->
 <!--        join gugun as g-->

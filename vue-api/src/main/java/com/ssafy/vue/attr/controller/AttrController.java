@@ -1,4 +1,4 @@
-package com.ssafy.vue.attr;
+package com.ssafy.vue.attr.controller;
 
 import com.ssafy.vue.map.model.SidoGugunCodeDto;
 import io.swagger.annotations.Api;
@@ -16,7 +16,7 @@ import java.util.Map;
 import com.ssafy.vue.map.model.SidoGugunCodeDto;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/attr")
 @Api("메인 페이지 컨트롤러 API V1")
 @Slf4j
 public class AttrController {
