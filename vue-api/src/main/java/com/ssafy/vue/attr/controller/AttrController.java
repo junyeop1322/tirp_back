@@ -24,35 +24,38 @@ import com.ssafy.vue.map.model.SidoGugunCodeDto;
 @Slf4j
 public class AttrController {
 
-//    private AttrService attrService;
-//
-//    public AttrController(AttrService attrService) {
-//        super();
-//        this.attrService = attrService;
-//    }
+    private AttrService attrService;
+
+    public AttrController(AttrService attrService) {
+        super();
+        this.attrService = attrService;
+    }
 
 
-//    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 관광지 수")
-//    @GetMapping("/attr/sido")
-//    public ResponseEntity<Map<String, Object>> getSido() {
-////        log.debug("sido data {}");
-//        Map<String, Object> resultMap = new HashMap<String, Object>();
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//
-//
-//
-//        return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//    }
+    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 관광지 수")
+    @GetMapping("/sido")
+    public ResponseEntity<?> countAttr() throws Exception {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        int count = attrService.countAttr();
+        log.info("countAttr - 호출 : " + count);
+        map.put("resultData", count);
 
-//    @ApiOperation(value = "게시글 총 개수", notes = "게시글의 총 개수를 나타냄", response = AttrDto.class)
-//	@GetMapping("/count")
-//	public ResponseEntity<Integer> countArticle() throws Exception {
-//		log.info("countArtice - 호출");
-//		return new ResponseEntity<Integer>(attrService.countArticle(), HttpStatus.OK);
-//	}
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+    }
+
+    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 총 관광지 수")
+	@GetMapping("/count")
+	public ResponseEntity<HashMap<String, Object>> countAttraction() throws Exception {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        int count = attrService.countAttraction();
+		log.info("countAttraction - 호출 :" + count);
+        map.put("resultData", count);
+
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+	}
 
 //    @ApiOperation(value= "시도 코드에 따른 구군 데이터", notes ="시도 코드에 따른 구군 데이터를 반환함", response = SidoGugunCodeDto.class)
-//    @GetMapping("/attr/gugun/{sidoCode}")
+//    @GetMapping("/gugun/{sidoCode}")
 //    public ResponseEntity<SidoGugunCodeDto> getGugun() {
 //
 //

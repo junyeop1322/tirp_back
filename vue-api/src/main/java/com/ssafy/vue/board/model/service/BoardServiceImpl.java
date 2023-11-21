@@ -128,14 +128,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteArticle(articleNo);
 	}
 
-//	@Override
-//	public int countArticle() throws Exception {
-//		return boardMapper.countArticle();
-//	}
+	@Override
+	public int countArticle() throws Exception {
+		return boardMapper.countArticle();
+	}
 
-//	@Override
-//	public List<BoardDto> topFive() throws Exception {
-//		return boardMapper.topFive();
-//	}
 
 }

@@ -21,7 +21,6 @@ public class PlannerController {
 
     private PlannerService plannerService;
 
-
     public PlannerController(PlannerService plannerService) {
         super();
         this.plannerService = plannerService;

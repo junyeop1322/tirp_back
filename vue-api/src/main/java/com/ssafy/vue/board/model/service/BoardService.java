@@ -19,8 +19,7 @@ public interface BoardService {
 
 	void deleteArticle(int articleNo) throws Exception;
 
-//	int countArticle() throws Exception;
+	int countArticle() throws Exception;
 
-//	List<BoardDto> topFive() throws Exception;
 	
 }

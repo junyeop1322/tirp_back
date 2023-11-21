@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.vue.search.model.mapper.SearchMapper">
+
+    <resultMap id="searchDto" type="searchDto">
+        <result column="content_type_id" property="contentTypeId"/>
+        <result column="sido_code" property="sidoCode"/>
+        <result column="gugun_code" property="gugunCode"/>
+        <result column="word" property="word"/>
+        <result column="date" property="date"/>
+    </resultMap>
+
+    <select id="topFive" parameterType="map" resultMap="searchDto">
+        select g.gugun_name
+        from search_log as s
+        join gugun as g
+        on s.gugun_code = g.gugun_code
+        group by g.gugun_name, g.gugun_code
+        order by count(g.gugun_code) desc
+        limit 5
+    </select>
+
+</mapper>

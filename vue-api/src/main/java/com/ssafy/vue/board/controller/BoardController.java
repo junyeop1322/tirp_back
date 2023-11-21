@@ -1,6 +1,7 @@
 package com.ssafy.vue.board.controller;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,12 +112,16 @@ public class BoardController {
 		return ResponseEntity.ok().build();
 	}
 
-//	@ApiOperation(value = "게시글 총 개수", notes = "게시글의 총 개수를 나타냄", response = BoardDto.class)
-//	@GetMapping("/count")
-//	public ResponseEntity<Integer> countArticle() throws Exception {
-//		log.info("countArtice - 호출");
-//		return new ResponseEntity<Integer>(boardService.countArticle(), HttpStatus.OK);
-//	}
+	@ApiOperation(value = "게시글 총 개수", notes = "게시글의 총 개수를 나타냄", response = BoardDto.class)
+	@GetMapping("/count")
+	public ResponseEntity<?> countArticle() throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int count = boardService.countArticle();
+		log.info("countArticle - 호출 : " + count);
+		map.put("resultData", count);
+
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+	}
 
 //	@ApiOperation(value = "가장 인기 많은 5가지 구군", notes = "가장 조회수가 구군 5가지를 뽑음")
 //	@GetMapping("/rank")
