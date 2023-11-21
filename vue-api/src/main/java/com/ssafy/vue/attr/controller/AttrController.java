@@ -1,5 +1,8 @@
 package com.ssafy.vue.attr.controller;
 
+import com.ssafy.vue.attr.model.AttrDto;
+import com.ssafy.vue.attr.model.service.AttrService;
+import com.ssafy.vue.board.controller.BoardController;
 import com.ssafy.vue.map.model.SidoGugunCodeDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,13 @@ import com.ssafy.vue.map.model.SidoGugunCodeDto;
 @Slf4j
 public class AttrController {
 
+//    private AttrService attrService;
+//
+//    public AttrController(AttrService attrService) {
+//        super();
+//        this.attrService = attrService;
+//    }
+
 
 //    @ApiOperation(value= "시도 데이터", notes ="검색 가능한 관광지 수")
 //    @GetMapping("/attr/sido")
@@ -33,6 +43,13 @@ public class AttrController {
 //
 //        return new ResponseEntity<Map<String, Object>>(resultMap, status);
 //    }
+
+//    @ApiOperation(value = "게시글 총 개수", notes = "게시글의 총 개수를 나타냄", response = AttrDto.class)
+//	@GetMapping("/count")
+//	public ResponseEntity<Integer> countArticle() throws Exception {
+//		log.info("countArtice - 호출");
+//		return new ResponseEntity<Integer>(attrService.countArticle(), HttpStatus.OK);
+//	}
 
 //    @ApiOperation(value= "시도 코드에 따른 구군 데이터", notes ="시도 코드에 따른 구군 데이터를 반환함", response = SidoGugunCodeDto.class)
 //    @GetMapping("/attr/gugun/{sidoCode}")

@@ -2,6 +2,7 @@ package com.ssafy.vue.board.model;
 
 import java.util.List;
 
+import com.ssafy.vue.planner.model.PlannerDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -34,5 +35,8 @@ public class BoardDto {
 	private int category;
 	@ApiModelProperty(value = "업로드 파일정보")
 	private List<FileInfoDto> fileInfos;
+	@ApiModelProperty(value = "플래너 아이디")
+	private String plannerId;
 
+	private PlannerDto plannerDto;
 }

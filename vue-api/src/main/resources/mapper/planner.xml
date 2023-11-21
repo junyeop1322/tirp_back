@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.vue.planner.model.mapper.PlannerMapper">
+
+    <resultMap type="plannerDto" id="planner">
+        <result column="planner_id" property="plannerId"/>
+        <result column="user_id" property="userId"/>
+        <result column="article_no" property="articleNo"/>
+        <result column="map_link" property="mapLink"/>
+        <result column="planner_title" property="plannerTitle"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="date" property="date"/>
+    </resultMap>
+
+    <!-- 유저별 작성한 플래너 수 -->
+    <select id="getPlan" parameterType="string" resultMap="planner">
+        SELECT planner_title, planner_id
+        FROM planner
+        WHERE user_id = #{userId}
+        ORDER BY date
+    </select>
+
+    <!-- 플래너 디테일 -->
+    <select id="getPlanDetail" parameterType="int" resultMap="planner">
+        SELECT *
+        FROM planner
+        WHERE planner_id = #{plannerId}
+    </select>
+
+    <!-- 검색 가능한 플래너 수 -->
+    <select id="countPlanner" parameterType="int" resultType="int">
+        select count(planner_id)
+        from planner
+    </select>
+
+</mapper>

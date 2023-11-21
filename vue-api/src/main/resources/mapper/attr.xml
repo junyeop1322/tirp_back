@@ -19,7 +19,7 @@
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 시도 코드에 따른 구군 데이터 &ndash;&gt;-->
-<!--    <select id="gugunSido" parameterType="" resultMap="attrDto">-->
+<!--    <select id="gugunSido" parameterType="map" resultType="attrDto">-->
 <!--        select g.gugun_code, g.gugun_name-->
 <!--        from gugun as g-->
 <!--        join sido as a-->
@@ -30,19 +30,19 @@
 <!--    &lt;!&ndash; 검색 가능한 총 관광지 수 &ndash;&gt;-->
 
 <!--    &lt;!&ndash; 검색 가능한 플래너 수 &ndash;&gt;-->
-<!--    <select id="countPlanner" parameterType="" resultMap="int">-->
+<!--    <select id="countPlanner" parameterType="int" resultType="int">-->
 <!--        select count(planner_id)-->
 <!--        from planner-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 게시글 총 개수 &ndash;&gt;-->
-<!--    <select id="countArticle" parameterType="" resultMap="int">-->
+<!--    <select id="countArticle" parameterType="int" resultType="int">-->
 <!--        select count(article_no)-->
 <!--        from board-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash; 검색 기록 중 상위 5개 구군 &ndash;&gt;-->
-<!--    <select id="topFive" parameterType="" resultMap="attrDto">-->
+<!--    <select id="topFive" parameterType="int" resultType="attrDto">-->
 <!--        select g.gugun_name-->
 <!--        from search_log as s-->
 <!--        join gugun as g-->

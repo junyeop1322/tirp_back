@@ -4,6 +4,14 @@
 
 <mapper namespace="com.ssafy.vue.board.model.mapper.BoardMapper">
 
+	<resultMap id="plannerDto" type="PlannerDto">
+		<result column="planner_id" property="plannerId"/>
+		<result column="map_link" property="mapLink"/>
+		<result column="planner_title" property="plannerTitle"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+	</resultMap>
+
 	<resultMap type="boardDto" id="article">
 		<result column="article_no" property="articleNo"/>
 		<result column="user_id" property="userId"/>
@@ -13,12 +21,31 @@
 		<result column="hit" property="hit"/>
 		<result column="category" property="category"/>
 		<result column="date" property="date"/>
+		<result column="planner_id" property="plannerId"/>
+		<collection property="plannerDto" resultMap="PlannerDto"/>
+	</resultMap>
+
+	<resultMap type="boardDto" id="board">
+		<result column="article_no" property="articleNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="hit" property="hit"/>
+		<result column="category" property="category"/>
+		<result column="date" property="date"/>
+		<result column="planner_id" property="plannerId"/>
 	</resultMap>
 	
-	<resultMap type="boardDto" id="viewArticle" extends="article">
-		<collection property="fileInfos" column="article_no" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>
+	<resultMap type="boardDto" id="viewArticle" extends="board">
+<!--		<collection property="fileInfos" column="article_no" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>-->
 	</resultMap>
-	
+
+<!--	<resultMap type="boardDto" id="viewArticle2" extends="article">-->
+<!--		<collection property="fileInfos" column="article_no" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>-->
+<!--	</resultMap>-->
+
+
 	<resultMap type="fileInfoDto" id="file">
 		<result column="save_folder" property="saveFolder"/>
 		<result column="original_file" property="originalFile"/>
@@ -26,8 +53,8 @@
 	</resultMap>
 
 	<insert id="writeArticle" parameterType="boardDto">
-		insert into board (user_id, subject, content, hit, register_time, category)
-		values (#{userId}, #{subject}, #{content}, 0, now(), #{category})
+		insert into board (user_id, subject, content, hit, date, category, planner_id)
+		values (#{userId}, #{subject}, #{content}, 0, now(), #{category}, #{plannerId})
 		<selectKey resultType="int" keyProperty="articleNo" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -52,10 +79,22 @@
 		</if>
 	</sql>
 
-	<select id="listArticle" parameterType="map" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category
-		from board b, member m
-		where b.user_id = m.user_id
+
+	<select id="getArticle" parameterType="int" resultMap="viewArticle">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category, b.planner_id
+		from board b
+		join member m
+		on b.user_id = m.user_id
+		where b.article_no = #{articleNo}
+	</select>
+
+
+	<select id="listArticle" parameterType="map" resultMap="board">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category, b.planner_id
+		from board b
+		join member m
+		on b.user_id = m.user_id
+		where 1=1
 		<include refid="search"></include>
 		and category = #{cate}
 		order by b.article_no desc
@@ -71,13 +110,9 @@
 			<include refid="search"></include>
 		</where>
 	</select>
-	
-	<select id="getArticle" parameterType="int" resultMap="viewArticle">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category
-		from board b, member m
-		where b.user_id = m.user_id
-		and b.article_no = #{articleNo}
-	</select>
+
+
+
 	
 	<select id="fileInfoList" resultMap="file">
 		select save_folder, original_file, save_file
@@ -93,7 +128,7 @@
 	
 	<update id="modifyArticle" parameterType="boardDto">
 		update board
-		set subject = #{subject}, content = #{content}
+		set subject = #{subject}, content = #{content}, category = #{category}, planner_id = #{plannerId}
 		where article_no = #{articleNo}
 	</update>
 	
