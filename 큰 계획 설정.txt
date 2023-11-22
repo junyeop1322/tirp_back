@@ -1,0 +1,223 @@
+😂 GET
+/board/{articleNo}
+return 데이터
+{
+    articleNo : 글번호,
+    category : 글 종류
+    subject : 글 제목
+    content : 글 내용
+    date : 글쓴 날짜
+    hit : 조회수
+    userId : 글쓴 사람 아이디
+    userName : 글쓴 사람 이름
+    plannerId : 플래너 id값
+
+    comment : [
+        {
+            commentId : 댓글 고유 id
+            content : 댓글
+            userId : 댓글 쓴 계정
+            parentId : 어떤 댓글의 답글인지에 대한 id값 즉, 자신과 다른 commentId를 넣어야함
+        }
+    ]
+}
+
+int count = countComment
+if (count == 0) {
+	
+}
+
+hashMap put : board 값은 resultData / dto, comment 값은 comment / listComment
+
+SELECT c.content, c.user_id, c.parent_id, c.date, comment_id
+FROM comment as c
+JOIN board as b
+ON c.article_no = b.article_no
+WHERE b.article_no = 98
+ORDER BY c.date asc;
+====================================================================
+
+
+=> countComment
+GET
+/comment/{articleNo}/count
+PathVariable로 넘어간 articleNo 기준으로 댓글 개수 셈하기
+
+
+=> modifyComment
+PUT
+/comment/{commentId}
+PathVariable로 넘어간 commentId 기준으로 Update진행
+return 데이터 HttpStatus.OK
+
+
+POST
+/comment/{articleNo}
+넘어간 댓글 데이터를 PathVariable로 넘어간 articleNo 기준으로 DB에 저장하면 됨
+return 데이터 HttpStatus.OK
+
+
+=> deleteComment
+DELETE
+/comment/{commentId}
+PathVariable로 넘어간 commentId 기준으로 Delete진행
+return 데이터 HttpStatus.OK
+
+
+=> listComment
+GET
+/comment/{articleNo}
+PathVariable로 넘어간 articleNo 기준으로 모든 댓글 리스트 뽑아오기
+return 데이터 HttpStatus.OK
+{
+    comment : [
+        {
+            commentId : 댓글 고유 id
+            content : 댓글
+            userId : 댓글 쓴 계정
+            parentId : 어떤 댓글의 답글인지에 대한 id값 즉, 자신과 다른 commentId를 넣어야함
+        }
+    ]
+}
+
+
+
+
+공지사항 : notice
+일반 글 : plan
+질문글 : question
+
+boardDto -> listComment
+
+comment
+writeComment
+
+content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, first_image2, readcount, sido_code, gugun_code, latitude, longitude, mlevel
+
+countAttr
+설명 : 검색 가능한 총 관광지 수
+method : get
+/attr/sido
+result Data :
+[
+    { 
+        sidoCode :
+        sidoName : 
+    }
+]
+
+😂 getGugun
+설명 : 시도 코드에 따른 구군 데이터
+method : get
+/attr/gugun/{sidoCode}
+resultData : 
+[
+    {
+        gugunCode : 
+        gugunName :
+    }
+]
+
+countAttraction
+설명 : 검색 가능한 총 관광지 수
+method : get
+/attr/count
+result Data : {
+    count : 
+}
+
+😂 countPlanner
+설명 : 검색 가능한 플레너 수
+method : get
+/plan/count
+result Data : {
+    count : 
+}
+
+😂 countArticle
+설명 : 게시글 총 개수
+method : get
+/board/count
+result Data : {
+    count : 
+}
+
+😂 topFive
+설명 : 검색 기록 중, 상위 5개 구군
+method : get
+/search/rank
+result Data : 
+[
+
+] < 여기다가 ORDER BY 한 결과 5개 담아주삼
+
+content_id
+gugun_code
+gugun_name
+planner_id
+article_no
+
+-- 검색 가능한 총 관광지 수
+select count(content_id) as count
+from attraction_info;
+
+-- 시도 코드에 따른 구군 데이터
+select g.gugun_code, g.gugun_name
+from gugun as g
+join sido as s
+on g.sido_code = s.sido_code
+where s.sido_code = 4;
+
+-- 검색 가능한 총 관광지 수
+select distinct count(content_id) as count
+from attraction_info as i
+join gugun as g
+on i.gugun_code = g.gugun_code
+where g.gugun_code = 2
+group by content_id;
+
+-- 검색 가능한 플래너 수
+select count(planner_id) as count
+from planner;
+
+-- 게시글 총 개수
+select count(article_no) as count
+from board;
+
+-- 검색 기록 중, 상위 5개 구군
+select g.gugun_name
+from search_log as s
+join gugun as g
+on s.gugun_code = g.gugun_code
+group by g.gugun_name, g.gugun_code
+order by count(g.gugun_code) desc
+limit 5;
+
+
+
+
+
+
+
+
+
+
+
+플래너 검색
+플래너 저장 (플래너랑 아이템 같이 저장)
+
+-> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.vue.attr.model.mapper.AttrMapper">
 
-    <resultMap type="AttrDto" id="attr">
+    <resultMap type="AttrDto" id="attrDto">
         <result column="content_id" property="contentId"/>
         <result column="content_type_id" property="contentTypeId"/>
         <result column="title" property="title"/>
@@ -22,21 +22,80 @@
         <result column="mlevel" property="mlevel"/>
     </resultMap>
 
+    <resultMap type="ContentDto" id="contentDto">
+        <result column="content_type_id" property="contentTypeId"/>
+        <result column="title" property="title"/>
+        <result column="addr1" property="addr1"/>
+        <result column="first_image" property="firstImage"/>
+        <result column="sido_code" property="sidoCode"/>
+        <result column="gugun_code" property="gugunCode"/>
+        <result column="latitude" property="latitude"/>
+        <result column="longitude" property="longitude"/>
+        <result column="searchword" property="searchWord"/>
+    </resultMap>
+
+    <resultMap id="sidoGugunDto" type="SidoGugunDto">
+        <result column="sido_code" property="sidoCode"/>
+        <result column="sido_name" property="sidoName"/>
+        <result column="gugun_code" property="gugunCode"/>
+        <result column="gugun_name" property="gugunName"/>
+    </resultMap>
+
     <!-- 검색 가능한 총 관광지 수 -->
-    <select id="countAttr" parameterType="int" resultType="int">
+    <select id="countAttraction" parameterType="int" resultType="int">
         select count(content_id)
         from attraction_info
     </select>
 
-    <!-- 검색 가능한 총 관광지 수 -->
+
+    <!-- 시도 데이터 -->
+    <select id="getSido" parameterType="map" resultMap="sidoGugunDto">
+        select *
+        from sido
+    </select>
 
     <!-- 시도 코드에 따른 구군 데이터 -->
-    <select id="gugunSido" parameterType="map" resultType="attrDto">
-        select g.gugun_code, g.gugun_name
-        from gugun as g
-        join sido as a
-        on g.sido_code = s.sido_code
-        where s.sido_code = #{sidoCode}
+    <select id="getGugun" parameterType="map" resultMap="sidoGugunDto">
+        select gugun_code, gugun_name
+        from gugun
+        where sido_code = #{sidoCode}
+        order by gugun_code
     </select>
+
+    <!-- 시도코드와 구군코드에 따른 관광지 데이터 -->
+    <select id="getAttraction" parameterType="map" resultMap="attrDto">
+        select content_type_id, title, addr1, first_image, latitude, longitude
+        from attraction_info
+        where sido_code = #{sidoCode}
+        and gugun_code = #{gugunCode}
+        order by title asc;
+    </select>
+
+    <!-- 시도코드와 구군코드에 따른 관광종류 데이터 -->
+    <select id="getContentTypeId" parameterType="contentDto" resultMap="contentDto">
+        select content_type_id, title, addr1, first_image, latitude, longitude
+        from attraction_info
+        where sido_code = #{sidoCode}
+        and gugun_code = #{gugunCode}
+        and content_type_id = #{contentTypeId}
+        <include refid="search"></include>
+        order by content_type_id asc;
+    </select>
+
+    <!-- 시도코드에 따른 관광종류 데이터 -->
+    <select id="getContentTypeId2" parameterType="contentDto" resultMap="contentDto">
+        select content_type_id, title, addr1, first_image, latitude, longitude
+        from attraction_info
+        where sido_code = #{sidoCode}
+        and content_type_id = #{contentTypeId}
+        <include refid="search"></include>
+        order by content_type_id asc;
+    </select>
+
+    <sql id="search">
+        <if test='searchWord != null and !searchWord.equals("")'>
+                and title like concat('%', #{searchWord}, '%')
+        </if>
+    </sql>
 
 </mapper>

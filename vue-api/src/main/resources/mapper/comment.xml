@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.vue.commet.model.mapper.CommentMapper">
+
+    <resultMap id="commentDto" type="CommentDto">
+        <result column="article_no" property="articleNo"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="date" property="date"/>
+        <result column="comment_id" property="commentId"/>
+    </resultMap>
+
+    <select id="countComment" parameterType="int" resultType="int">
+        SELECT count(comment_id)
+        FROM comment
+        WHERE article_no = #{articleNo};
+    </select>
+
+    <insert id="writeComment" parameterType="CommentDto">
+        insert into `comment` (article_no, content, user_id, parent_id)
+        value (#{articleNo}, #{content}, #{userId}, #{parentId})
+        <selectKey resultType="int" keyProperty="commentId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="modifyComment" parameterType="CommentDto">
+        update comment
+        set content = #{content}
+        where comment_id = #{commentId}
+    </update>
+
+    <delete id="deleteComment" parameterType="int">
+        delete from comment
+        where comment_id = #{commentId}
+    </delete>
+
+</mapper>

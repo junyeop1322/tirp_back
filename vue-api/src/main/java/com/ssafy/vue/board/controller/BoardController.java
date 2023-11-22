@@ -80,12 +80,13 @@ public class BoardController {
 	public ResponseEntity<BoardDto> getArticle(
 			@PathVariable("articleno") @ApiParam(value = "얻어올 글의 글번호.", required = true) int articleno)
 			throws Exception {
-		log.info("getArticle - 호출 : " + articleno);
-		boardService.updateHit(articleno);
+//		log.info("getArticle - 호출 : " + articleno);
+//		boardService.updateHit(articleno);
 		return new ResponseEntity<BoardDto>(boardService.getArticle(articleno), HttpStatus.OK);
+
 	}
 
-	@ApiOperation(value = "수정 할 글 얻기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
+	@ApiOperation(value = "글 얻기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
 	@GetMapping("/modify/{articleno}")
 	public ResponseEntity<BoardDto> getModifyArticle(
 			@PathVariable("articleno") @ApiParam(value = "얻어올 글의 글번호.", required = true) int articleno)
@@ -123,12 +124,6 @@ public class BoardController {
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
-//	@ApiOperation(value = "가장 인기 많은 5가지 구군", notes = "가장 조회수가 구군 5가지를 뽑음")
-//	@GetMapping("/rank")
-//	public List<BoardDto> topFive() throws Exception {
-//		log.info("topFive 호출");
-//		return boardService.topFive();
-//	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();

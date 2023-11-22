@@ -39,9 +39,9 @@ public class AttrDto {
     @ApiModelProperty(value = "구군 코드")
     private int gugunCode;
     @ApiModelProperty(value = "위도")
-    private long latitude;
+    private double latitude;
     @ApiModelProperty(value = "경도")
-    private long longitude;
+    private double longitude;
     @ApiModelProperty(value = "M선")
     private String mlevel;
 

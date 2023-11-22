@@ -31,7 +31,7 @@
     </select>
 
     <!-- 검색 가능한 플래너 수 -->
-    <select id="countPlanner" parameterType="int" resultType="int">
+    <select id="countPlanner" resultType="int">
         select count(planner_id)
         from planner
     </select>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ssafy.vue.board.model.BoardDto;
 import com.ssafy.vue.board.model.BoardListDto;
+import com.ssafy.vue.comment.model.CommentDto;
 
 public interface BoardService {
 
@@ -21,5 +22,6 @@ public interface BoardService {
 
 	int countArticle() throws Exception;
 
+	List<CommentDto> listComment(int articleNo) throws Exception;
 	
 }

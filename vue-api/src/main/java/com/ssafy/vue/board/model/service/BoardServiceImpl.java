@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.comment.model.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -133,5 +134,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.countArticle();
 	}
 
+	@Override
+	public List<CommentDto> listComment(int articleNo) throws Exception {
+		return boardMapper.listComment(articleNo);
+	}
 
 }

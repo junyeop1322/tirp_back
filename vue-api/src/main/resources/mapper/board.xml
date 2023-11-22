@@ -142,10 +142,10 @@
 		where article_no = #{articleNo}
 	</delete>
 
-<!--	<select id="countArticle" parameterType="int" resultType="int">-->
-<!--		select count(article_no)-->
-<!--		from board-->
-<!--	</select>-->
+	<select id="countArticle" resultType="int">
+		select count(article_no)
+		from board
+	</select>
 
 <!--	<select id="topFive" parameterType="boardDto" resultMap="topFive">-->
 <!--		select g.gugun_name-->

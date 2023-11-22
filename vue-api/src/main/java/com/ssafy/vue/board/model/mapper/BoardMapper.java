@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.comment.model.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.vue.board.model.BoardDto;
@@ -33,6 +34,9 @@ public interface BoardMapper {
 	List<FileInfoDto> fileInfoList(int articleNo) throws Exception;
 
 	int countArticle() throws Exception;
+
+	List<CommentDto> listComment(int articleNo) throws Exception;
+
 
 	
 }
