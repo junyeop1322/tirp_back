@@ -1,6 +1,7 @@
 package com.ssafy.vue.planner.model.service;
 
 import com.ssafy.vue.planner.model.PlannerDto;
+import com.ssafy.vue.planner.model.PlannerItemDto;
 import com.ssafy.vue.planner.model.mapper.PlannerMapper;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,16 @@ public class PlannerServiceImpl implements PlannerService {
 
     public int countPlanner() throws Exception {
         return plannerMapper.countPlanner();
+    }
+
+    @Override
+    public List<PlannerDto> searchPlan(PlannerDto plannerDto) throws Exception {
+        return plannerMapper.searchPlan(plannerDto);
+    }
+
+    @Override
+    public List<PlannerItemDto> getPlanItem(int plannerId) throws Exception {
+        return plannerMapper.getPlanItem(plannerId);
     }
 
 }

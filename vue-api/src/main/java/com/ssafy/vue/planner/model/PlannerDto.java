@@ -30,5 +30,7 @@ public class PlannerDto {
     private String endDate;
     @ApiModelProperty(value = "계획 생성 날짜")
     private String date;
+    @ApiModelProperty(value = "검색어")
+    private String searchWord;
 
 }

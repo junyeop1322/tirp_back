@@ -13,6 +13,13 @@
         <result column="start_date" property="startDate"/>
         <result column="end_date" property="endDate"/>
         <result column="date" property="date"/>
+        <result column="searchword" property="searchWord"/>
+    </resultMap>
+
+    <resultMap type="PlannerItemDto" id="plannerItemDto">
+        <result column="content_id" property="contentId"/>
+        <result column="planner_id" property="plannerId"/>
+        <result column="date" property="date"/>
     </resultMap>
 
     <!-- 유저별 작성한 플래너 수 -->
@@ -34,6 +41,27 @@
     <select id="countPlanner" resultType="int">
         select count(planner_id)
         from planner
+    </select>
+
+    <select id="searchPlan" parameterType="plannerDto" resultMap="planner">
+        SELECT *
+        FROM planner
+        WHERE start_date >= #{startDate}
+        and #{endDate} >= end_date
+        <include refid="search"></include>
+        ORDER BY date
+    </select>
+
+    <sql id="search">
+        <if test='searchWord != null and !searchWord.equals("")'>
+            and planner_title like concat('%', #{searchWord}, '%')
+        </if>
+    </sql>
+
+    <select id="getPlanItem" parameterType="int" resultMap="plannerItemDto">
+        SELECT *
+        FROM planner_item
+        WHERE planner_id = #{plannerId}
     </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.ssafy.vue.planner.model.mapper;
 
 import com.ssafy.vue.planner.model.PlannerDto;
+import com.ssafy.vue.planner.model.PlannerItemDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,4 +14,9 @@ public interface PlannerMapper {
     PlannerDto getPlanDetail(int plannerId) throws Exception;
 
     int countPlanner() throws Exception;
+
+    List<PlannerDto> searchPlan(PlannerDto plannerDto) throws Exception;
+
+    List<PlannerItemDto> getPlanItem(int plannerId) throws Exception;
+
 }

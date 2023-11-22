@@ -47,7 +47,6 @@
         from attraction_info
     </select>
 
-
     <!-- 시도 데이터 -->
     <select id="getSido" parameterType="map" resultMap="sidoGugunDto">
         select *
@@ -79,7 +78,7 @@
         and gugun_code = #{gugunCode}
         and content_type_id = #{contentTypeId}
         <include refid="search"></include>
-        order by content_type_id asc;
+        order by content_type_id asc
     </select>
 
     <!-- 시도코드에 따른 관광종류 데이터 -->
@@ -89,7 +88,7 @@
         where sido_code = #{sidoCode}
         and content_type_id = #{contentTypeId}
         <include refid="search"></include>
-        order by content_type_id asc;
+        order by content_type_id asc
     </select>
 
     <sql id="search">

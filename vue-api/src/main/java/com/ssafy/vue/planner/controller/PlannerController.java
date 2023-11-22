@@ -1,16 +1,14 @@
 package com.ssafy.vue.planner.controller;
 
 import com.ssafy.vue.planner.model.PlannerDto;
+import com.ssafy.vue.planner.model.PlannerItemDto;
 import com.ssafy.vue.planner.model.service.PlannerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -69,6 +67,35 @@ public class PlannerController {
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "플래너 검색", notes = "날짜에 맞는 플래너를 반환함")
+    @PostMapping("/search")
+    public ResponseEntity<?> searchPlan(
+            @RequestBody PlannerDto plannerDto
+    ) throws Exception {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        log.info("searchPlan 호출");
+        List<PlannerDto> plan = plannerService.searchPlan(plannerDto);
 
+        if(plan.size() == 0) {
+            plan = Collections.emptyList();
+        }
+
+        map.put("resultData", plan);
+
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "플래너 아이템", notes = "플래너 번호에 맞는 플래너 아이템을 반환함")
+    @GetMapping("/{plannerid}/items")
+    public ResponseEntity<?> getPlanItem(
+            @PathVariable("plannerid") @ApiParam(value = "얻어올 플래너 아이디", required = true) int plannerid
+    ) throws Exception {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        log.info("getPlanItem 호출");
+        List<PlannerItemDto> planItem = plannerService.getPlanItem(plannerid);
+        map.put("resultData", planItem);
+
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+    }
 
 }
