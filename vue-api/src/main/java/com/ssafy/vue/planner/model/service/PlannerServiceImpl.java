@@ -1,5 +1,7 @@
 package com.ssafy.vue.planner.model.service;
 
+import com.ssafy.vue.planner.model.AttractionDto;
+import com.ssafy.vue.planner.model.PlanItemDto;
 import com.ssafy.vue.planner.model.PlannerDto;
 import com.ssafy.vue.planner.model.PlannerItemDto;
 import com.ssafy.vue.planner.model.mapper.PlannerMapper;
@@ -18,8 +20,13 @@ public class PlannerServiceImpl implements PlannerService {
     }
 
     @Override
-    public List<PlannerDto> getPlan(String userId) throws Exception {
+    public List<PlanItemDto> getPlan(String userId) throws Exception {
         return plannerMapper.getPlan(userId);
+    }
+
+    @Override
+    public List<AttractionDto> getPlanAttraction(int plannerId) throws Exception {
+        return plannerMapper.getPlanAttraction(plannerId);
     }
 
     @Override
@@ -54,6 +61,16 @@ public class PlannerServiceImpl implements PlannerService {
     @Override
     public void deletePlanner(int planner_id) throws Exception {
         plannerMapper.deletePlanner(planner_id);
+    }
+
+    @Override
+    public void writerPlannerItem(int plannerId, int contentId) {
+        plannerMapper.writerPlannerItem(plannerId, contentId);
+    }
+
+    @Override
+    public void deletePlannerItem(int plannerId, int contentId) {
+        plannerMapper.deletePlannerItem(plannerId, contentId);
     }
 
 }

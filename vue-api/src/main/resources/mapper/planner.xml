@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.vue.planner.model.mapper.PlannerMapper">
 
-    <resultMap type="plannerDto" id="planner">
+    <resultMap type="plannerDto" id="plannerDto">
         <result column="planner_id" property="plannerId"/>
         <result column="user_id" property="userId"/>
         <result column="article_no" property="articleNo"/>
@@ -20,18 +20,44 @@
         <result column="content_id" property="contentId"/>
         <result column="planner_id" property="plannerId"/>
         <result column="date" property="date"/>
+        <collection property="attractionDto" resultMap="attractionDto"/>
     </resultMap>
 
+    <resultMap type="planItemDto" id="planItemDto">
+        <result column="content_id" property="contentId"/>
+        <result column="planner_id" property="plannerId"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="planner_title" property="plannerTitle"/>
+        <collection property="attractionDto" resultMap="attractionDto"/>
+    </resultMap>
+
+    <resultMap type="attractionDto" id="attractionDto">
+        <result column="title" property="title"/>
+        <result column="addr1" property="addr1"/>
+        <result column="latitude" property="latitude"/>
+        <result column="longitude" property="longitude"/>
+    </resultMap>
+
+
     <!-- 유저별 작성한 플래너 수 -->
-    <select id="getPlan" parameterType="string" resultMap="planner">
-        SELECT planner_title, planner_id
+    <select id="getPlan" parameterType="string" resultMap="planItemDto">
+        SELECT planner_id, end_date, start_date, planner_title
         FROM planner
         WHERE user_id = #{userId}
         ORDER BY date
     </select>
 
+    <select id="getPlanAttraction" parameterType="map" resultMap="attractionDto">
+        SELECT i.title, i.addr1, i.latitude, i.longitude
+        FROM planner_item as pi
+        JOIN attraction_info as i
+        ON pi.content_id = i.content_id
+        WHERE pi.planner_id = #{plannerId};
+    </select>
+
     <!-- 플래너 디테일 -->
-    <select id="getPlanDetail" parameterType="int" resultMap="planner">
+    <select id="getPlanDetail" parameterType="int" resultMap="plannerDto">
         SELECT *
         FROM planner
         WHERE planner_id = #{plannerId}
@@ -43,7 +69,7 @@
         from planner
     </select>
 
-    <select id="searchPlan" parameterType="plannerDto" resultMap="planner">
+    <select id="searchPlan" parameterType="plannerDto" resultMap="plannerDto">
         SELECT *
         FROM planner
         WHERE start_date >= #{startDate}
@@ -64,7 +90,7 @@
         WHERE planner_id = #{plannerId}
     </select>
 
-    <insert id="writePlanner" parameterType="planner">
+    <insert id="writePlanner" parameterType="plannerDto">
         insert into planner (planner_id, user_id, article_no, map_link, planner_title, start_date, end_date, date)
         values (#{plannerId}, #{userId}, #{articleNo}, #{mapLink}, #{plannerTitle}, #{startDate}, #{endDate}, now())
         <selectKey resultType="int" keyProperty="plannerId" order="AFTER">
@@ -72,15 +98,26 @@
         </selectKey>
     </insert>
 
-    <update id="modifyPlanner" parameterType="planner">
+    <update id="modifyPlanner" parameterType="plannerDto">
         update planner
-        set subject = #{subject}, content = #{content}, category = #{category}, planner_id = #{plannerId}
+        set map_link = #{mapLink}, planner_title = #{plannerTitle}, start_date = #{startDate}, end_date = #{endDate}
         where planner_id = #{plannerId}
     </update>
 
     <delete id="deletePlanner" parameterType="int">
         delete from planner
         where planner_id = #{plannerId}
+    </delete>
+
+    <insert id="writePlannerItem" parameterType="int">
+        insert into planner_item (planner_id, content_id)
+        values (#{plannerId}, #{contentId})
+    </insert>
+
+    <delete id="deletePlannerItem" parameterType="int">
+        delete from planner_item
+        where planner_id = #{plannerId}
+        and content_id = #{contentId}
     </delete>
 
 </mapper>

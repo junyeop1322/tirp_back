@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,5 +22,7 @@ public class PlannerItemDto {
     private int plannerId;
     @ApiModelProperty(value = "작성 날짜")
     private String date;
+    @ApiModelProperty(value = "여행지 정보")
+    private List<AttractionDto> attractionDto;
 
 }
