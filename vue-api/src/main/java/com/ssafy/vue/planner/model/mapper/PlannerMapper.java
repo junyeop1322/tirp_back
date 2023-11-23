@@ -19,4 +19,10 @@ public interface PlannerMapper {
 
     List<PlannerItemDto> getPlanItem(int plannerId) throws Exception;
 
+    void writePlanner(PlannerDto plannerDto) throws Exception;
+
+    void modifyPlanner(PlannerDto plannerDto) throws Exception;
+
+    void deletePlanner(int planner_id) throws Exception;
+
 }

@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.board.model.BoardCommentDto;
+import com.ssafy.vue.board.model.CommentBDto;
+import com.ssafy.vue.comment.controller.CommentController;
+import com.ssafy.vue.comment.model.CommentDto;
+import com.ssafy.vue.comment.model.service.CommentService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -77,13 +82,45 @@ public class BoardController {
 
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
 	@GetMapping("/{articleno}")
-	public ResponseEntity<BoardDto> getArticle(
+	public ResponseEntity<?> getArticle(
 			@PathVariable("articleno") @ApiParam(value = "얻어올 글의 글번호.", required = true) int articleno)
 			throws Exception {
-//		log.info("getArticle - 호출 : " + articleno);
-//		boardService.updateHit(articleno);
-		return new ResponseEntity<BoardDto>(boardService.getArticle(articleno), HttpStatus.OK);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int count = countComment(articleno);
 
+		if (count == 0) {
+			BoardDto board = boardService.getArticle(articleno);
+			map.put("resultData", board);
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} else {
+			BoardCommentDto boardComment = boardService.getArticleComment(articleno);
+			boardComment.setCommentBDto(listComment(articleno));
+			map.put("resultData", boardComment);
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		}
+	}
+
+	@ApiOperation(value = "게시글의 댓글개수", notes = "게시글마다 댓글의 개수를 나타냄", response = CommentDto.class)
+	@GetMapping("/{articleNo}/count")
+	public int countComment(
+			@PathVariable("articleNo") @ApiParam(value = "댓글 개수를 조회할 게시판 번호", required = true) int articleno
+	) throws Exception {
+		int count = boardService.countComment(articleno);
+		log.info("countComment - 호출 : " + count);
+
+		return count;
+	}
+
+	@ApiOperation(value = "댓글 리스트 호출", notes = "게시글의 댓글을 보여준다")
+	@GetMapping("/{articleno}/comment")
+	public List<CommentBDto> listComment(
+			@PathVariable("articleno") @ApiParam(value = "게시글 번호") int articleno
+	) throws Exception {
+		log.info("listCommet 호출 : " + articleno);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<CommentBDto> comm = boardService.listComment(articleno);
+
+		return comm;
 	}
 
 	@ApiOperation(value = "글 얻기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)

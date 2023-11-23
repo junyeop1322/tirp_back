@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.board.model.*;
 import com.ssafy.vue.comment.model.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.vue.board.model.BoardDto;
-import com.ssafy.vue.board.model.BoardListDto;
-import com.ssafy.vue.board.model.FileInfoDto;
 import com.ssafy.vue.board.model.mapper.BoardMapper;
+import com.ssafy.vue.comment.controller.CommentController;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	private BoardMapper boardMapper;
+
 
 	@Autowired
 	public BoardServiceImpl(BoardMapper boardMapper) {
@@ -96,7 +96,13 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDto getArticle(int articleNo) throws Exception {
-		return boardMapper.getArticle(articleNo);
+			return boardMapper.getArticle(articleNo);
+
+	}
+
+	@Override
+	public BoardCommentDto getArticleComment(int articleNo) throws Exception {
+		return boardMapper.getArticleComment(articleNo);
 	}
 
 	@Override
@@ -135,8 +141,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CommentDto> listComment(int articleNo) throws Exception {
+	public List<CommentBDto> listComment(int articleNo) throws Exception {
 		return boardMapper.listComment(articleNo);
+	}
+
+	@Override
+	public int countComment(int articleNo) throws Exception {
+		return boardMapper.countComment(articleNo);
 	}
 
 }

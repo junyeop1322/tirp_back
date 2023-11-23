@@ -64,4 +64,23 @@
         WHERE planner_id = #{plannerId}
     </select>
 
+    <insert id="writePlanner" parameterType="planner">
+        insert into planner (planner_id, user_id, article_no, map_link, planner_title, start_date, end_date, date)
+        values (#{plannerId}, #{userId}, #{articleNo}, #{mapLink}, #{plannerTitle}, #{startDate}, #{endDate}, now())
+        <selectKey resultType="int" keyProperty="plannerId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="modifyPlanner" parameterType="planner">
+        update planner
+        set subject = #{subject}, content = #{content}, category = #{category}, planner_id = #{plannerId}
+        where planner_id = #{plannerId}
+    </update>
+
+    <delete id="deletePlanner" parameterType="int">
+        delete from planner
+        where planner_id = #{plannerId}
+    </delete>
+
 </mapper>

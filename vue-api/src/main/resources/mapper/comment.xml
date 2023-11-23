@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.vue.commet.model.mapper.CommentMapper">
+<mapper namespace="com.ssafy.vue.comment.model.mapper.CommentMapper">
 
     <resultMap id="commentDto" type="CommentDto">
         <result column="article_no" property="articleNo"/>
@@ -19,7 +19,7 @@
         WHERE article_no = #{articleNo};
     </select>
 
-    <insert id="writeComment" parameterType="CommentDto">
+    <insert id="writeComment" parameterType="commentDto">
         insert into `comment` (article_no, content, user_id, parent_id)
         value (#{articleNo}, #{content}, #{userId}, #{parentId})
         <selectKey resultType="int" keyProperty="commentId" order="AFTER">
@@ -27,7 +27,7 @@
         </selectKey>
     </insert>
 
-    <update id="modifyComment" parameterType="CommentDto">
+    <update id="modifyComment" parameterType="commentDto">
         update comment
         set content = #{content}
         where comment_id = #{commentId}
@@ -37,5 +37,11 @@
         delete from comment
         where comment_id = #{commentId}
     </delete>
+
+    <select id="listComment" parameterType="int" resultMap="commentDto">
+        select *
+        from comment
+        where article_no = #{articleNo}
+    </select>
 
 </mapper>

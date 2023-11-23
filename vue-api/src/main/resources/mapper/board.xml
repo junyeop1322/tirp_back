@@ -12,7 +12,16 @@
 		<result column="end_date" property="endDate"/>
 	</resultMap>
 
-	<resultMap type="boardDto" id="article">
+	<resultMap id="commentBDto" type="CommentBDto">
+		<result column="article_no" property="articleNo"/>
+		<result column="content" property="content"/>
+		<result column="user_id" property="userId"/>
+		<result column="parent_id" property="parentId"/>
+		<result column="date" property="date"/>
+		<result column="comment_id" property="commentId"/>
+	</resultMap>
+
+	<resultMap type="boardCommentDto" id="boardComment">
 		<result column="article_no" property="articleNo"/>
 		<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
@@ -22,7 +31,7 @@
 		<result column="category" property="category"/>
 		<result column="date" property="date"/>
 		<result column="planner_id" property="plannerId"/>
-		<collection property="plannerDto" resultMap="PlannerDto"/>
+		<collection property="commentBDto" resultMap="commentBDto"/>
 	</resultMap>
 
 	<resultMap type="boardDto" id="board">
@@ -80,7 +89,7 @@
 	</sql>
 
 
-	<select id="getArticle" parameterType="int" resultMap="viewArticle">
+	<select id="getArticle" parameterType="int" resultMap="board">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category, b.planner_id
 		from board b
 		join member m
@@ -88,6 +97,13 @@
 		where b.article_no = #{articleNo}
 	</select>
 
+	<select id="getArticleComment" parameterType="int" resultMap="boardComment">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category, b.planner_id
+		from board b
+		join member m
+		on b.user_id = m.user_id
+		where b.article_no = #{articleNo}
+	</select>
 
 	<select id="listArticle" parameterType="map" resultMap="board">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.date, m.user_name, b.category, b.planner_id
@@ -147,14 +163,16 @@
 		from board
 	</select>
 
-<!--	<select id="topFive" parameterType="boardDto" resultMap="topFive">-->
-<!--		select g.gugun_name-->
-<!--		from search_log as s-->
-<!--		join gugun as g-->
-<!--		on s.gugun_code = g.gugun_code-->
-<!--		group by g.gugun_name, g.gugun_code-->
-<!--		order by count(g.gugun_code) desc-->
-<!--		limit 5-->
-<!--	</select>-->
+	<select id="countComment" parameterType="int" resultType="int">
+		SELECT count(comment_id)
+		FROM comment
+		WHERE article_no = #{articleNo};
+	</select>
+
+	<select id="listComment" parameterType="int" resultMap="commentBDto">
+		select *
+		from comment
+		where article_no = #{articleNo}
+	</select>
 
 </mapper>

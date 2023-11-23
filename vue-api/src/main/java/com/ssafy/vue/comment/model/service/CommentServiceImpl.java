@@ -4,6 +4,8 @@ import com.ssafy.vue.comment.model.CommentDto;
 import com.ssafy.vue.comment.model.mapper.CommentMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -32,5 +34,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(int commentId) throws Exception {
         commentMapper.deleteComment(commentId);
+    }
+
+    @Override
+    public List<CommentDto> listComment(int articleNo) throws Exception {
+        return commentMapper.listComment(articleNo);
     }
 }

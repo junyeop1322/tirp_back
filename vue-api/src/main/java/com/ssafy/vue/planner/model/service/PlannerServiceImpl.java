@@ -41,4 +41,19 @@ public class PlannerServiceImpl implements PlannerService {
         return plannerMapper.getPlanItem(plannerId);
     }
 
+    @Override
+    public void writePlanner(PlannerDto plannerDto) throws Exception {
+        plannerMapper.writePlanner(plannerDto);
+    }
+
+    @Override
+    public void modifyPlanner(PlannerDto plannerDto) throws Exception {
+        plannerMapper.modifyPlanner(plannerDto);
+    }
+
+    @Override
+    public void deletePlanner(int planner_id) throws Exception {
+        plannerMapper.deletePlanner(planner_id);
+    }
+
 }

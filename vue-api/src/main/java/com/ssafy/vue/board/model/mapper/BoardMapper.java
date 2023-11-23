@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.board.model.BoardCommentDto;
+import com.ssafy.vue.board.model.CommentBDto;
 import com.ssafy.vue.comment.model.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,6 +25,8 @@ public interface BoardMapper {
 
 	BoardDto getArticle(int articleNo) throws SQLException;
 
+	BoardCommentDto getArticleComment(int articleNo) throws Exception;
+
 	void updateHit(int articleNo) throws SQLException;
 
 	void modifyArticle(BoardDto boardDto) throws SQLException;
@@ -35,8 +39,9 @@ public interface BoardMapper {
 
 	int countArticle() throws Exception;
 
-	List<CommentDto> listComment(int articleNo) throws Exception;
+	List<CommentBDto> listComment(int articleNo) throws Exception;
 
+	int countComment(int articleNo) throws Exception;
 
 	
 }
