@@ -1,0 +1,9 @@
+[
+  { "contentName": "관광지", "contentTypeId": 12 },
+  { "contentName": "문화시설", "contentTypeId": 14 },
+  { "contentName": "축제공연행사", "contentTypeId": 15 },
+  { "contentName": "레포츠", "contentTypeId": 28 },
+  { "contentName": "숙박", "contentTypeId": 32 },
+  { "contentName": "쇼핑", "contentTypeId": 38 },
+  { "contentName": "음식점", "contentTypeId": 39 }
+]

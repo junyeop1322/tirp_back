@@ -1,0 +1,35 @@
+{
+  "name": "front",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
+    "axios": "^1.6.2",
+    "jwt-decode": "^4.0.0",
+    "mdi-vue3": "^7.3.67",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "vue": "^3.3.4",
+    "vue-plugin-load-script": "^2.1.1",
+    "vue-router": "^4.2.5",
+    "vue3-autocounter": "^1.0.6",
+    "vuetify": "^3.4.2"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.3.67",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "vite": "^4.4.11"
+  }
+}

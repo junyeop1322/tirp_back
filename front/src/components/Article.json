@@ -1,0 +1,49 @@
+{
+  "articleNo": 42,
+  "content": "dummy article content",
+  "date": "2023-11-22",
+  "hit": 0,
+  "subject": "dummy aritcle subject",
+  "userId": "ssafy4",
+  "userName": "김싸피",
+  "category": 1,
+  "plannerId": null,
+  "comment": [
+    {
+      "commentId": 1,
+      "content": "댓글 1번 입니다만",
+      "userId": "ssafy1",
+      "parentId": null
+    },
+    {
+      "commentId": 2,
+      "content": "댓글 2번 입니다만",
+      "userId": "ssafy1",
+      "parentId": null
+    },
+    {
+      "commentId": 3,
+      "content": "댓글 1번에 대한 답글 1번 입니다만",
+      "userId": "ssafy4",
+      "parentId": 1
+    },
+    {
+      "commentId": 4,
+      "content": "댓글 1번에 대한 답글 2번 입니다만",
+      "userId": "ssafy1",
+      "parentId": 1
+    },
+    {
+      "commentId": 5,
+      "content": "댓글 2번에 대한 답글 1번 입니다만",
+      "userId": "ssafy4",
+      "parentId": 2
+    },
+    {
+      "commentId": 6,
+      "content": "댓글 2번에 대한 답글 2번 입니다만",
+      "userId": "ssafy1",
+      "parentId": 2
+    }
+  ]
+}
